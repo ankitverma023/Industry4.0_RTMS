@@ -1,0 +1,95 @@
+# ==========================
+# Dependencies
+# ==========================
+node_modules/
+**/node_modules/
+
+# ==========================
+# Python
+# ==========================
+venv/
+.venv/
+env/
+ENV/
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.pytest_cache/
+.mypy_cache/
+.ipynb_checkpoints/
+
+# ==========================
+# Environment Variables
+# ==========================
+.env
+.env.*
+!.env.example
+
+# ==========================
+# Build Output
+# ==========================
+dist/
+build/
+coverage/
+out/
+
+# ==========================
+# Logs
+# ==========================
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# ==========================
+# OS Files
+# ==========================
+.DS_Store
+Thumbs.db
+
+# ==========================
+# VS Code
+# ==========================
+.vscode/
+.idea/
+
+# ==========================
+# SQLite Database
+# (Keep this if database is generated locally)
+# ==========================
+*.db
+*.sqlite
+*.sqlite3
+
+# ==========================
+# Temporary Files
+# ==========================
+*.tmp
+*.temp
+*.swp
+
+# ==========================
+# Cache
+# ==========================
+.cache/
+.parcel-cache/
+
+# ==========================
+# Vite
+# ==========================
+.vite/
+
+# ==========================
+# Python Virtual Environment
+# ==========================
+pip-wheel-metadata/
+
+# ==========================
+# Runtime Files
+# ==========================
+*.pid
+*.seed
+*.pid.lock
