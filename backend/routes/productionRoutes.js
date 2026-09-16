@@ -107,6 +107,8 @@ router.put('/status/:id', (req, res) => {
   });
 });
 
+const { forceRefreshMachines } = require('../simulationEngine');
+
 /**
  * @swagger
  * /api/production/machine-override:
@@ -121,6 +123,7 @@ router.post('/machine-override', (req, res) => {
   const { machine_id, status } = req.body; // 'Running', 'Paused', 'Fault'
   db.run("UPDATE machines SET status = ? WHERE machine_id = ?", [status, machine_id], function(err) {
     if (err) return res.status(500).json({ error: err.message });
+    if (forceRefreshMachines) forceRefreshMachines();
     res.json({ success: true });
   });
 });

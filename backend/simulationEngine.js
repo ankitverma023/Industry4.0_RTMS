@@ -29,6 +29,7 @@ function generateMachineData(machine) {
     machine_id: machine.machine_id,
     name: machine.name,
     type: machine.type,
+    status: machine.status,
     temperature: isFault ? 95 + Math.random() * 10 : (isWarning ? 85 + Math.random() * 5 : 70 + Math.random() * 5),
     pressure: isFault ? 120 + Math.random() * 20 : (isWarning ? 100 + Math.random() * 10 : 80 + Math.random() * 5),
     rpm: isFault ? 0 : (isWarning ? 1400 + Math.random() * 200 : 1500 + Math.random() * 50),
@@ -112,4 +113,4 @@ function startSimulation(io) {
   }, 2000); // Generate data every 2 seconds
 }
 
-module.exports = { startSimulation };
+module.exports = { startSimulation, forceRefreshMachines: fetchMachinesFromDB };

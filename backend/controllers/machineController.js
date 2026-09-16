@@ -34,6 +34,8 @@ exports.deleteMachine = (req, res) => {
   });
 };
 
+const { forceRefreshMachines } = require('../simulationEngine');
+
 exports.updateMachine = (req, res) => {
   const id = req.params.id;
   const { name, type, status } = req.body;
@@ -46,6 +48,7 @@ exports.updateMachine = (req, res) => {
     function(err) {
       if (err) return res.status(500).json({ message: 'Database error' });
       if (this.changes === 0) return res.status(404).json({ message: 'Machine not found' });
+      if (forceRefreshMachines) forceRefreshMachines();
       res.json({ message: 'Machine updated successfully' });
     }
   );

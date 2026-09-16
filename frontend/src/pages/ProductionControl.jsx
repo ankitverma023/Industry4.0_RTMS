@@ -37,6 +37,32 @@ const ProductionControl = () => {
     return () => socket.off('production_data', handleProduction);
   }, [socket]);
 
+  const [optimisticOverrides, setOptimisticOverrides] = useState({});
+
+  const handleOverride = async (machineId, action) => {
+    // action: 'start', 'pause', 'estop'
+    let targetStatus = action === 'start' ? 'Running' : (action === 'pause' ? 'Paused' : 'Fault');
+    
+    // Set optimistic UI state
+    setOptimisticOverrides(prev => ({ ...prev, [machineId]: targetStatus }));
+    
+    try {
+      await fetch('http://localhost:5002/api/production/machine-override', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ machine_id: machineId, status: targetStatus })
+      });
+    } catch (err) {
+      console.error(err);
+      // Revert on error
+      setOptimisticOverrides(prev => {
+        const next = { ...prev };
+        delete next[machineId];
+        return next;
+      });
+    }
+  };
+
   const handleDispatch = async (e) => {
     e.preventDefault();
     if (!dispatchForm.machine_id) return alert("Select a machine first!");
@@ -68,19 +94,7 @@ const ProductionControl = () => {
     }
   };
 
-  const handleOverride = async (machineId, action) => {
-    // action: 'Running', 'Paused', 'Fault'
-    let targetStatus = action === 'start' ? 'Running' : (action === 'pause' ? 'Paused' : 'Fault');
-    try {
-      await fetch('http://localhost:5002/api/production/machine-override', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ machine_id: machineId, status: targetStatus })
-      });
-    } catch (err) {
-      console.error(err);
-    }
-  };
+
 
   const setSpeed = async (orderId, newSpeed) => {
     try {
@@ -214,6 +228,8 @@ const ProductionControl = () => {
                     if (activeJob && activeJob.completed > 0) {
                        yieldPercent = Math.round(((activeJob.completed - activeJob.defects) / activeJob.completed) * 100);
                     }
+                    
+                    const displayStatus = optimisticOverrides[m.machine_id] || m.status;
 
                     return (
                       <tr key={m.machine_id} style={{borderBottom: '1px solid rgba(255,255,255,0.05)'}}>
@@ -222,8 +238,8 @@ const ProductionControl = () => {
                             <span style={{fontWeight: 800, color: 'var(--text-primary)', fontSize: '0.9rem'}}>{m.name || m.machine_id}</span>
                             <span style={{
                               fontSize: '0.65rem', fontWeight: 700, textTransform: 'uppercase', marginTop: '0.25rem',
-                              color: m.status === 'Running' ? 'var(--success)' : m.status === 'Paused' ? 'var(--warning)' : 'var(--danger)'
-                            }}>{m.status}</span>
+                              color: displayStatus === 'Running' ? 'var(--success)' : displayStatus === 'Paused' ? 'var(--warning)' : 'var(--danger)'
+                            }}>{displayStatus}</span>
                           </div>
                         </td>
                         
@@ -288,21 +304,22 @@ const ProductionControl = () => {
                         <td style={{padding: '1rem 0.5rem', display: 'flex', justifyContent: 'flex-end', gap: '0.5rem', alignItems: 'center'}}>
                           <button 
                             onClick={() => handleOverride(m.machine_id, 'start')}
-                            style={{background: 'rgba(16, 185, 129, 0.1)', color: 'var(--success)', border: '1px solid rgba(16, 185, 129, 0.2)', padding: '0.4rem', borderRadius: '4px', cursor: 'pointer', transition: 'all 0.2s', opacity: m.status === 'Running' ? 0.3 : 1}}
-                            disabled={m.status === 'Running'}
+                            style={{background: 'rgba(16, 185, 129, 0.1)', color: 'var(--success)', border: '1px solid rgba(16, 185, 129, 0.2)', padding: '0.4rem', borderRadius: '4px', cursor: 'pointer', transition: 'all 0.2s', opacity: displayStatus === 'Running' ? 0.3 : 1}}
+                            disabled={displayStatus === 'Running'}
                           >
                             <Play size={14} />
                           </button>
                           <button 
                             onClick={() => handleOverride(m.machine_id, 'pause')}
-                            style={{background: 'rgba(245, 158, 11, 0.1)', color: 'var(--warning)', border: '1px solid rgba(245, 158, 11, 0.2)', padding: '0.4rem', borderRadius: '4px', cursor: 'pointer', transition: 'all 0.2s', opacity: m.status === 'Paused' ? 0.3 : 1}}
-                            disabled={m.status === 'Paused'}
+                            style={{background: 'rgba(245, 158, 11, 0.1)', color: 'var(--warning)', border: '1px solid rgba(245, 158, 11, 0.2)', padding: '0.4rem', borderRadius: '4px', cursor: 'pointer', transition: 'all 0.2s', opacity: displayStatus === 'Paused' ? 0.3 : 1}}
+                            disabled={displayStatus === 'Paused'}
                           >
                             <Pause size={14} />
                           </button>
                           <button 
                             onClick={() => handleOverride(m.machine_id, 'estop')}
-                            style={{background: 'rgba(239, 68, 68, 0.15)', color: 'var(--danger)', border: '1px solid rgba(239, 68, 68, 0.4)', padding: '0.4rem', borderRadius: '4px', cursor: 'pointer', transition: 'all 0.2s'}}
+                            style={{background: 'rgba(239, 68, 68, 0.15)', color: 'var(--danger)', border: '1px solid rgba(239, 68, 68, 0.4)', padding: '0.4rem', borderRadius: '4px', cursor: 'pointer', transition: 'all 0.2s', opacity: displayStatus === 'Fault' ? 0.3 : 1}}
+                            disabled={displayStatus === 'Fault'}
                           >
                             <AlertOctagon size={14} />
                           </button>
