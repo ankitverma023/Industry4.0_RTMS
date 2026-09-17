@@ -48,6 +48,11 @@ const Login = () => {
           </div>
           <h1 style={{fontSize: '1.5rem', marginBottom: '0.25rem', textAlign: 'center', color: 'var(--text-primary)'}}>System Authentication</h1>
           <p style={{color: 'var(--text-secondary)', textAlign: 'center', fontSize: '0.875rem'}}>Please enter your credentials to proceed</p>
+          
+          <div style={{marginTop: '1rem', padding: '0.75rem', width: '100%', background: 'rgba(59, 130, 246, 0.05)', borderRadius: '0.5rem', border: '1px dashed rgba(59, 130, 246, 0.3)'}}>
+             <p style={{color: 'var(--text-secondary)', fontSize: '0.75rem', textAlign: 'center', marginBottom: '0.25rem'}}>Demo Operator Account (For Recruiters):</p>
+             <p style={{color: 'var(--accent-blue)', fontSize: '0.8rem', textAlign: 'center', fontWeight: 600}}>operator / operator123</p>
+          </div>
         </div>
 
         {error && (
