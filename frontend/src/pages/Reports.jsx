@@ -19,7 +19,7 @@ const Reports = () => {
     try {
       const token = localStorage.getItem('rtms_token');
       
-      const resAlerts = await fetch('http://localhost:5002/api/alerts', {
+      const resAlerts = await fetch('https://industry4-0-rtms-1.onrender.com/api/alerts', {
         headers: { Authorization: `Bearer ${token}` },
         cache: 'no-store'
       });
@@ -28,7 +28,7 @@ const Reports = () => {
         setAlerts(Array.isArray(data) ? data : []);
       }
 
-      const resMaint = await fetch('http://localhost:5002/api/maintenance', {
+      const resMaint = await fetch('https://industry4-0-rtms-1.onrender.com/api/maintenance', {
         headers: { Authorization: `Bearer ${token}` }
       });
       if (resMaint.ok) {
@@ -568,7 +568,7 @@ const Reports = () => {
               e.preventDefault();
               try {
                 const token = localStorage.getItem('rtms_token');
-                const res = await fetch('http://localhost:5002/api/maintenance', {
+                const res = await fetch('https://industry4-0-rtms-1.onrender.com/api/maintenance', {
                   method: 'POST',
                   headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
                   body: JSON.stringify(newLog)

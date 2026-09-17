@@ -18,7 +18,7 @@ const Staff = () => {
   const fetchUsers = async () => {
     try {
       const token = localStorage.getItem('rtms_token');
-      const res = await fetch('http://localhost:5002/api/users', {
+      const res = await fetch('https://industry4-0-rtms-1.onrender.com/api/users', {
         headers: { Authorization: `Bearer ${token}` }
       });
       if (res.ok) {
@@ -53,7 +53,7 @@ const Staff = () => {
     
     try {
       const token = localStorage.getItem('rtms_token');
-      const res = await fetch('http://localhost:5002/api/users', {
+      const res = await fetch('https://industry4-0-rtms-1.onrender.com/api/users', {
         method: 'POST',
         headers: { 
           'Content-Type': 'application/json',
@@ -81,7 +81,7 @@ const Staff = () => {
     
     try {
       const token = localStorage.getItem('rtms_token');
-      const res = await fetch(`http://localhost:5002/api/users/${id}`, {
+      const res = await fetch(`https://industry4-0-rtms-1.onrender.com/api/users/${id}`, {
         method: 'DELETE',
         headers: { Authorization: `Bearer ${token}` }
       });
@@ -109,7 +109,7 @@ const Staff = () => {
       const payload = { username: editUserData.username, role: editUserData.role };
       if (editUserData.password) payload.password = editUserData.password;
       
-      const res = await fetch(`http://localhost:5002/api/users/${id}`, {
+      const res = await fetch(`https://industry4-0-rtms-1.onrender.com/api/users/${id}`, {
         method: 'PUT',
         headers: { 
           'Content-Type': 'application/json',

@@ -17,7 +17,7 @@ const ProductionControl = () => {
   useEffect(() => {
     const fetchOrders = async () => {
       try {
-        const res = await fetch('http://localhost:5002/api/production/work-orders');
+        const res = await fetch('https://industry4-0-rtms-1.onrender.com/api/production/work-orders');
         const data = await res.json();
         if (Array.isArray(data)) setOrders(data);
       } catch (err) {
@@ -47,7 +47,7 @@ const ProductionControl = () => {
     setOptimisticOverrides(prev => ({ ...prev, [machineId]: targetStatus }));
     
     try {
-      await fetch('http://localhost:5002/api/production/machine-override', {
+      await fetch('https://industry4-0-rtms-1.onrender.com/api/production/machine-override', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ machine_id: machineId, status: targetStatus })
@@ -68,7 +68,7 @@ const ProductionControl = () => {
     if (!dispatchForm.machine_id) return alert("Select a machine first!");
     
     try {
-      const res = await fetch('http://localhost:5002/api/production/dispatch', {
+      const res = await fetch('https://industry4-0-rtms-1.onrender.com/api/production/dispatch', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -98,7 +98,7 @@ const ProductionControl = () => {
 
   const setSpeed = async (orderId, newSpeed) => {
     try {
-      await fetch(`http://localhost:5002/api/production/speed/${orderId}`, {
+      await fetch(`https://industry4-0-rtms-1.onrender.com/api/production/speed/${orderId}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ speed: parseInt(newSpeed) })

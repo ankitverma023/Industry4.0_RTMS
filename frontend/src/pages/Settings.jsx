@@ -35,7 +35,7 @@ const Settings = () => {
   useEffect(() => {
     const fetchSettings = async () => {
       try {
-        const res = await fetch('http://localhost:5002/api/settings');
+        const res = await fetch('https://industry4-0-rtms-1.onrender.com/api/settings');
         const data = await res.json();
         if (data && !data.error) {
            setSettings({
@@ -54,7 +54,7 @@ const Settings = () => {
     const fetchMachines = async () => {
       try {
         const token = localStorage.getItem('rtms_token');
-        const res = await fetch('http://localhost:5002/api/machines', {
+        const res = await fetch('https://industry4-0-rtms-1.onrender.com/api/machines', {
           headers: { 'Authorization': `Bearer ${token}` }
         });
         if (res.ok) {
@@ -85,7 +85,7 @@ const Settings = () => {
   const handleUpdate = async (key, value) => {
     setSettings(prev => ({...prev, [key]: parseFloat(value)}));
     try {
-      await fetch('http://localhost:5002/api/settings', {
+      await fetch('https://industry4-0-rtms-1.onrender.com/api/settings', {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ key, value })
@@ -102,7 +102,7 @@ const Settings = () => {
     setMachineError('');
     try {
       const token = localStorage.getItem('rtms_token');
-      const res = await fetch('http://localhost:5002/api/machines', {
+      const res = await fetch('https://industry4-0-rtms-1.onrender.com/api/machines', {
         method: 'POST',
         headers: { 
           'Content-Type': 'application/json',
@@ -124,7 +124,7 @@ const Settings = () => {
     if (!window.confirm('Are you sure you want to delete this machine?')) return;
     try {
       const token = localStorage.getItem('rtms_token');
-      const res = await fetch(`http://localhost:5002/api/machines/${id}`, {
+      const res = await fetch(`https://industry4-0-rtms-1.onrender.com/api/machines/${id}`, {
         method: 'DELETE',
         headers: { 'Authorization': `Bearer ${token}` }
       });
@@ -144,7 +144,7 @@ const Settings = () => {
   const handleSaveMachine = async (id) => {
     try {
       const token = localStorage.getItem('rtms_token');
-      const res = await fetch(`http://localhost:5002/api/machines/${id}`, {
+      const res = await fetch(`https://industry4-0-rtms-1.onrender.com/api/machines/${id}`, {
         method: 'PUT',
         headers: { 
           'Content-Type': 'application/json',

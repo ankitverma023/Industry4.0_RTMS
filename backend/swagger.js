@@ -11,7 +11,7 @@ const options = {
     },
     servers: [
       {
-        url: 'http://localhost:5002',
+        url: 'https://industry4-0-rtms-1.onrender.com',
         description: 'Development Server',
       },
     ],

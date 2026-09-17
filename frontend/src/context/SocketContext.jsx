@@ -13,7 +13,7 @@ export const SocketProvider = ({ children }) => {
 
   useEffect(() => {
     // For local development, connect to the backend running on port 5002
-    const newSocket = io('http://localhost:5002');
+    const newSocket = io('https://industry4-0-rtms-1.onrender.com');
     
     newSocket.on('connect', () => {
       console.log('Connected to WebSocket server');

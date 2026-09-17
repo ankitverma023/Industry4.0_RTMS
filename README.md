@@ -130,7 +130,7 @@ cd backend
 node server.js
 ```
 
-Runs on `http://localhost:5002`. On first run, the SQLite database is created and seeded automatically if empty.
+Runs on `https://industry4-0-rtms-1.onrender.com`. On first run, the SQLite database is created and seeded automatically if empty.
 
 **Frontend**
 

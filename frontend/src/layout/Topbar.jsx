@@ -15,7 +15,7 @@ const Topbar = () => {
       try {
         const token = localStorage.getItem('rtms_token');
         if (!token) return;
-        const res = await fetch('http://localhost:5002/api/alerts', {
+        const res = await fetch('https://industry4-0-rtms-1.onrender.com/api/alerts', {
           headers: { Authorization: `Bearer ${token}` },
           cache: 'no-store'
         });

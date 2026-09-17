@@ -12,7 +12,7 @@ const Alerts = () => {
     const fetchAlerts = async () => {
       try {
         const token = localStorage.getItem('rtms_token');
-        const res = await fetch('http://localhost:5002/api/alerts', {
+        const res = await fetch('https://industry4-0-rtms-1.onrender.com/api/alerts', {
           headers: { Authorization: `Bearer ${token}` },
           cache: 'no-store'
         });
@@ -46,7 +46,7 @@ const Alerts = () => {
   const acknowledgeAlert = async (id) => {
     try {
       const token = localStorage.getItem('rtms_token');
-      await fetch(`http://localhost:5002/api/alerts/${id}/acknowledge`, {
+      await fetch(`https://industry4-0-rtms-1.onrender.com/api/alerts/${id}/acknowledge`, {
         method: 'POST',
         headers: { Authorization: `Bearer ${token}` }
       });
@@ -59,7 +59,7 @@ const Alerts = () => {
   const resolveAlert = async (id) => {
     try {
       const token = localStorage.getItem('rtms_token');
-      await fetch(`http://localhost:5002/api/alerts/${id}/resolve`, {
+      await fetch(`https://industry4-0-rtms-1.onrender.com/api/alerts/${id}/resolve`, {
         method: 'POST',
         headers: { Authorization: `Bearer ${token}` }
       });
