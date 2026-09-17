@@ -130,7 +130,7 @@ cd backend
 node server.js
 ```
 
-Runs on `https://industry4-0-rtms-1.onrender.com`. On first run, the SQLite database is created and seeded automatically if empty.
+Runs on `http://localhost:5002`. On first run, the SQLite database is created and seeded automatically if empty.
 
 **Frontend**
 
@@ -147,7 +147,7 @@ The database seed includes the following test accounts:
 
 | Role | Username | Password | Access |
 | :--- | :--- | :--- | :--- |
-| Admin | `admin` | `admin123` | Full access — settings, staff directory, 3D layout editing |
+| Admin | `*****` | `*****` | Full access — settings, staff directory, 3D layout editing |
 | Operator | `operator` | `operator123` | Dashboard and monitoring |
 | Viewer | `viewer` | `viewer123` | Read-only |
 
@@ -164,7 +164,10 @@ The database seed includes the following test accounts:
 
 ## Demo
 
-Coming soon.
+- Live App: [industry4-0-rtms.vercel.app](https://industry4-0-rtms.vercel.app/)
+- Backend API (not a page — used by the frontend): [industry4-0-rtms-1.onrender.com](https://industry4-0-rtms-1.onrender.com)
+
+> Note: the backend is hosted on Render's free tier and may take up to a minute to spin up on first request. Visiting the backend URL directly in a browser will show `Cannot GET /` — this is expected, since it's an API server with no root page.
 
 ## Author
 
