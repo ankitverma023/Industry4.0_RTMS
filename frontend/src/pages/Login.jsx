@@ -17,7 +17,9 @@ const Login = () => {
     setIsLoading(true);
     
     try {
-      const result = await login(username, password);
+      const cleanUsername = username.trim().toLowerCase();
+      const cleanPassword = password.trim();
+      const result = await login(cleanUsername, cleanPassword);
       
       if (result.success) {
         navigate('/');
